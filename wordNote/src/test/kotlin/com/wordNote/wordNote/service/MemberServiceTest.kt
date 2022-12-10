@@ -2,10 +2,10 @@ package com.wordNote.wordNote.service
 
 import com.wordNote.wordNote.domain.Member
 import com.wordNote.wordNote.dto.MemberUpdateForm
+import com.wordNote.wordNote.exception.MemberNotFoundException
 import com.wordNote.wordNote.repository.MemberRepository
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
-import org.junit.Before
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -23,7 +23,7 @@ class MemberServiceTest @Autowired constructor(
 
     @BeforeEach
     fun init() {
-        val initMember = Member("init","init","init", emptyList(),1L)
+        val initMember = Member("init","init","init", null,1L)
         memberRepository.save(initMember)
     }
 
@@ -35,7 +35,7 @@ class MemberServiceTest @Autowired constructor(
 
     @Test
     fun joinTest() {
-        val member = Member("test","test","test", emptyList(),2L)
+        val member = Member("test","test","test", null,2L)
         memberService.join(member)
         val findMember = memberRepository.findById(member.id).get()
         Assertions.assertThat(member.loginId).isEqualTo(findMember.loginId)
@@ -43,7 +43,7 @@ class MemberServiceTest @Autowired constructor(
 
     @Test
     fun joinExceptionTest() {
-        val initMember = Member("init","init","init", emptyList(),1L)
+        val initMember = Member("init","init","init", null,1L)
         val assertThrows = assertThrows(IllegalArgumentException::class.java) {
             memberService.join(initMember)
         }
@@ -70,7 +70,7 @@ class MemberServiceTest @Autowired constructor(
     fun updateTest() {
 
         //given
-        val member = Member("test","test","test", emptyList(),1L)
+        val member = Member("test","test","test", null,1L)
         memberRepository.save(member)
         //when
         val form = MemberUpdateForm("init","init")
@@ -85,11 +85,11 @@ class MemberServiceTest @Autowired constructor(
 
     @Test
     fun updateExceptionTest() {
-        val member = Member("test","test","test", emptyList(),1L)
+        val member = Member("test","test","test", null,1L)
         memberRepository.save(member)
         //when
         val form = MemberUpdateForm("init","init")
-        val assertThrow = assertThrows(IllegalArgumentException::class.java) {
+        val assertThrow = assertThrows(MemberNotFoundException::class.java) {
             memberService.update("error",form)
         }
 
@@ -99,7 +99,7 @@ class MemberServiceTest @Autowired constructor(
 
     @Test
     fun deleteTest() {
-        val member = Member("test","test","test", emptyList(),1L)
+        val member = Member("test","test","test", null,1L)
         memberRepository.save(member)
         //when
         memberService.delete(member.loginId)
@@ -108,15 +108,23 @@ class MemberServiceTest @Autowired constructor(
 
     @Test
     fun deleteExceptionTest() {
-        val member = Member("test","test","test", emptyList(),1L)
+        val member = Member("test","test","test", null,1L)
         memberRepository.save(member)
         //when
-        val assertThrow = assertThrows(IllegalArgumentException::class.java) {
+        val assertThrow = assertThrows(MemberNotFoundException::class.java) {
             memberService.delete("error")
         }
 
         assertThat(assertThrow.message).isEqualTo("회원을 찾을 수 없습니다.")
 
+    }
+
+    @Test
+    fun findAll() {
+        val member = Member("test","test","test", null,1L)
+        memberRepository.save(member)
+        val members : List<Member>? = memberService.findAll()
+        Assertions.assertThat(members?.size).isEqualTo(2)
     }
 
 

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface WordSetRepository : JpaRepository<WordSet,Long> {
+    fun findByTitle(title : String) : WordSet?
 }

@@ -5,20 +5,22 @@ import javax.persistence.*
 
 @Entity
 class Member(
-    val loginId : String,
-    var password : String,
-    var name : String,
+    val loginId: String,
+    var password: String,
+    var name: String,
 
-    @OneToMany(mappedBy = "member")
-    @Column(name = "word_set_id")
-    val wordSet : List<WordSet>,
+    @OneToMany(mappedBy = "member", cascade = [CascadeType.ALL])
+    var wordSets : MutableList<WordSet>? = mutableListOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id : Long? = null,
+    val id: Long? = null,
 ) {
+
     fun update(form : MemberUpdateForm) {
         this.password = form.password
         this.name = form.name
     }
+
+
 }

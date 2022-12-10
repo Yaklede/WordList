@@ -9,6 +9,7 @@ class Word(
     val meaning : String?,
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "word_set_id")
     val wordSet : WordSet?,
 
     @Id
