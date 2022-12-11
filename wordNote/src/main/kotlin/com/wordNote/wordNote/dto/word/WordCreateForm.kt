@@ -1,4 +1,4 @@
-package com.wordNote.wordNote.dto
+package com.wordNote.wordNote.dto.word
 
 data class WordCreateForm (
     val vocabulary : String,

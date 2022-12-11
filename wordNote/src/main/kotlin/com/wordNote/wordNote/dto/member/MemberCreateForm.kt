@@ -1,4 +1,4 @@
-package com.wordNote.wordNote.dto
+package com.wordNote.wordNote.dto.member
 
 data class MemberCreateForm(
     val loginId : String,

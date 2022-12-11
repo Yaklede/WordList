@@ -1,4 +1,4 @@
-package com.wordNote.wordNote.dto
+package com.wordNote.wordNote.dto.wordSet
 
 import javax.management.Descriptor
 

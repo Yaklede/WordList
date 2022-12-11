@@ -1,6 +1,6 @@
 package com.wordNote.wordNote.domain
 
-import com.wordNote.wordNote.dto.WordUpdateForm
+import com.wordNote.wordNote.dto.word.WordUpdateForm
 import javax.persistence.*
 
 @Entity

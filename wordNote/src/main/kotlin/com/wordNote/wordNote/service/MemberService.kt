@@ -1,14 +1,13 @@
 package com.wordNote.wordNote.service
 
 import com.wordNote.wordNote.domain.Member
-import com.wordNote.wordNote.dto.MemberCreateForm
-import com.wordNote.wordNote.dto.MemberUpdateForm
+import com.wordNote.wordNote.dto.member.MemberCreateForm
+import com.wordNote.wordNote.dto.member.MemberUpdateForm
 import com.wordNote.wordNote.exception.MemberNotFoundException
 import com.wordNote.wordNote.repository.MemberRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import kotlin.IllegalArgumentException
-import kotlin.concurrent.thread
 
 @Service
 @Transactional(readOnly = true)

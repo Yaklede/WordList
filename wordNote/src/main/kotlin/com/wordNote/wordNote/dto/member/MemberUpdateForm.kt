@@ -1,4 +1,4 @@
-package com.wordNote.wordNote.dto
+package com.wordNote.wordNote.dto.member
 
 import com.wordNote.wordNote.domain.Member
 

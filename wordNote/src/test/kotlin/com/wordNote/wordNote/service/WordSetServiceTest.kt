@@ -2,8 +2,8 @@ package com.wordNote.wordNote.service
 
 import com.wordNote.wordNote.domain.Member
 import com.wordNote.wordNote.domain.WordSet
-import com.wordNote.wordNote.dto.WordSetCreateForm
-import com.wordNote.wordNote.dto.WordSetUpdateForm
+import com.wordNote.wordNote.dto.wordSet.WordSetCreateForm
+import com.wordNote.wordNote.dto.wordSet.WordSetUpdateForm
 import com.wordNote.wordNote.exception.WordSetNotFoundException
 import com.wordNote.wordNote.repository.MemberRepository
 import com.wordNote.wordNote.repository.WordSetRepository

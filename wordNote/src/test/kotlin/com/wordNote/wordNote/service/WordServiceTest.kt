@@ -1,18 +1,12 @@
 package com.wordNote.wordNote.service
 
-import com.wordNote.wordNote.domain.Member
-import com.wordNote.wordNote.domain.WordSet
-import com.wordNote.wordNote.dto.MemberCreateForm
-import com.wordNote.wordNote.dto.WordCreateForm
-import com.wordNote.wordNote.dto.WordSetCreateForm
-import com.wordNote.wordNote.dto.WordUpdateForm
+import com.wordNote.wordNote.dto.member.MemberCreateForm
+import com.wordNote.wordNote.dto.word.WordCreateForm
+import com.wordNote.wordNote.dto.wordSet.WordSetCreateForm
+import com.wordNote.wordNote.dto.word.WordUpdateForm
 import com.wordNote.wordNote.exception.WordNotFoundException
-import com.wordNote.wordNote.repository.MemberRepository
 import com.wordNote.wordNote.repository.WordRepository
-import com.wordNote.wordNote.repository.WordSetRepository
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

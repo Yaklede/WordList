@@ -1,12 +1,10 @@
 package com.wordNote.wordNote.service
 
 import com.wordNote.wordNote.domain.Word
-import com.wordNote.wordNote.dto.WordCreateForm
-import com.wordNote.wordNote.dto.WordSetUpdateForm
-import com.wordNote.wordNote.dto.WordUpdateForm
+import com.wordNote.wordNote.dto.word.WordCreateForm
+import com.wordNote.wordNote.dto.word.WordUpdateForm
 import com.wordNote.wordNote.exception.WordNotFoundException
 import com.wordNote.wordNote.repository.WordRepository
-import com.wordNote.wordNote.repository.WordSetRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
