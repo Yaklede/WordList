@@ -9,7 +9,7 @@ class Member(
     var password: String,
     var name: String,
 
-    @OneToMany(mappedBy = "member", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "member")
     var wordSets : MutableList<WordSet>? = mutableListOf(),
 
     @Id

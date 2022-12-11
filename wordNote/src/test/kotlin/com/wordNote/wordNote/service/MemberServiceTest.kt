@@ -1,6 +1,7 @@
 package com.wordNote.wordNote.service
 
 import com.wordNote.wordNote.domain.Member
+import com.wordNote.wordNote.dto.MemberCreateForm
 import com.wordNote.wordNote.dto.MemberUpdateForm
 import com.wordNote.wordNote.exception.MemberNotFoundException
 import com.wordNote.wordNote.repository.MemberRepository
@@ -35,15 +36,15 @@ class MemberServiceTest @Autowired constructor(
 
     @Test
     fun joinTest() {
-        val member = Member("test","test","test", null,2L)
-        memberService.join(member)
-        val findMember = memberRepository.findById(member.id).get()
-        Assertions.assertThat(member.loginId).isEqualTo(findMember.loginId)
+        val form = MemberCreateForm("id","pass","name")
+        val memberId = memberService.join(form)
+        val findMember = memberRepository.findById(memberId).get()
+        Assertions.assertThat(form.loginId).isEqualTo(findMember.loginId)
     }
 
     @Test
     fun joinExceptionTest() {
-        val initMember = Member("init","init","init", null,1L)
+        val initMember = MemberCreateForm("init","init","init")
         val assertThrows = assertThrows(IllegalArgumentException::class.java) {
             memberService.join(initMember)
         }

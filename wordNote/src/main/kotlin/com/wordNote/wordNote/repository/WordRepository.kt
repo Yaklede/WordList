@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface WordRepository : JpaRepository<Word,Long> {
+    fun findAllByWordSetId(wordSetId : Long?) : MutableList<Word>?
 }

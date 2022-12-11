@@ -33,7 +33,6 @@ class WordSetServiceTest @Autowired constructor(
 
         //then
         assertThat(wordSet?.title).isEqualTo(findWordSet?.title)
-        assertThat(wordSet?.word).isEqualTo(findWordSet?.word)
         assertThat(wordSet?.member).isEqualTo(findWordSet?.member)
         assertThat(wordSet?.description).isEqualTo(findWordSet?.description)
     }
@@ -97,7 +96,6 @@ class WordSetServiceTest @Autowired constructor(
         //then
         assertThat(updatedWordSet?.title).isEqualTo("updateTitle")
         assertThat(updatedWordSet?.description).isEqualTo("updateDescription")
-        assertThat(updatedWordSet?.word).isEmpty()
     }
 
     @Test
@@ -114,4 +112,5 @@ class WordSetServiceTest @Autowired constructor(
         //then
         assertThat(assertThrows.message).isEqualTo("학습세트를 찾을 수 없습니다.")
     }
+
 }

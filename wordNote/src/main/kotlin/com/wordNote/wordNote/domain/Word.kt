@@ -1,12 +1,13 @@
 package com.wordNote.wordNote.domain
 
+import com.wordNote.wordNote.dto.WordUpdateForm
 import javax.persistence.*
 
 @Entity
 class Word(
 
-    val vocabulary : String?,
-    val meaning : String?,
+    var vocabulary : String?,
+    var meaning : String?,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "word_set_id")
@@ -16,4 +17,8 @@ class Word(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id : Long? = null,
 ) {
+    fun changeWord(form : WordUpdateForm) {
+        this.vocabulary = form.vocabulary
+        this.meaning = form.meaning
+    }
 }

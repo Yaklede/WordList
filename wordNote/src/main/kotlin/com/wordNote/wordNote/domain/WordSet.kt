@@ -9,13 +9,13 @@ class WordSet(
     var title: String?,
     var description: String?,
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     var member : Member?,
 
     @OneToMany(mappedBy = "wordSet", cascade = [CascadeType.ALL])
     @Column(name = "word_id")
-    val word: MutableList<Word>? = mutableListOf(),
+    var words: MutableList<Word>? = mutableListOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,10 @@ class WordSet(
 ) {
     fun settingMemberWordSetList(wordSet: WordSet) {
         this.member?.wordSets?.add(wordSet)
+    }
+
+    fun settingWordList(words : MutableList<Word>?) {
+        this.words = words
     }
 
     fun update(form : WordSetUpdateForm) {

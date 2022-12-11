@@ -1,12 +1,14 @@
 package com.wordNote.wordNote.service
 
 import com.wordNote.wordNote.domain.Member
+import com.wordNote.wordNote.dto.MemberCreateForm
 import com.wordNote.wordNote.dto.MemberUpdateForm
 import com.wordNote.wordNote.exception.MemberNotFoundException
 import com.wordNote.wordNote.repository.MemberRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import kotlin.IllegalArgumentException
+import kotlin.concurrent.thread
 
 @Service
 @Transactional(readOnly = true)
@@ -14,7 +16,8 @@ class MemberService(
     private val memberRepository: MemberRepository,
 ) {
     @Transactional
-    fun join(member : Member) : Long? {
+    fun join(memberForm : MemberCreateForm) : Long? {
+        val member = Member(memberForm.loginId,memberForm.password,memberForm.name)
         validDuplicateLoginId(member)
         memberRepository.save(member)
         return member.id
@@ -49,6 +52,9 @@ class MemberService(
     }
     private fun getMemberByLoginId(loginId: String): Member {
         return memberRepository.findByLoginId(loginId) ?: return throw MemberNotFoundException()
+    }
+    fun findById(memberId : Long?) : Member? {
+        return memberRepository.findById(memberId).orElse(null) ?: return throw MemberNotFoundException()
     }
 
     fun findAll() : List<Member> {

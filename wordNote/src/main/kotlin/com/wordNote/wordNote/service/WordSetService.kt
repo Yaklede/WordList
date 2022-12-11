@@ -14,21 +14,18 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class WordSetService(
-    private val memberRepository: MemberRepository,
+    private val memberService: MemberService,
     private val wordSetRepository: WordSetRepository,
 ) {
     @Transactional
     fun create(memberId : Long?, form : WordSetCreateForm) : Long? {
-        val member = getMemberByMemberId(memberId)
+        val member = memberService.findById(memberId)
         val wordSet = WordSet(form.title,form.description,member)
         wordSet.settingMemberWordSetList(wordSet)
         wordSetRepository.save(wordSet)
         return wordSet.id
     }
 
-    private fun getMemberByMemberId(memberId: Long?): Member {
-        return memberRepository.findById(memberId).orElse(null) ?: throw MemberNotFoundException()
-    }
     @Transactional
     fun delete(wordSetId: Long?) {
         val findWordSet = getWordSetById(wordSetId)
