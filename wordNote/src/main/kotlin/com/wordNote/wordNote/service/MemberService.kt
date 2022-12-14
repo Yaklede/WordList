@@ -8,7 +8,6 @@ import com.wordNote.wordNote.repository.MemberRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import kotlin.IllegalArgumentException
-
 @Service
 @Transactional(readOnly = true)
 class MemberService(

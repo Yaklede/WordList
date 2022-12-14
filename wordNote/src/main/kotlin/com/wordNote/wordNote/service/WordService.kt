@@ -26,7 +26,11 @@ class WordService(
     }
 
     fun findAllByWordSetId(wordSetId: Long?) : MutableList<Word>? {
-        return wordRepository.findAllByWordSetId(wordSetId)
+        val findList = wordRepository.findAllByWordSetId(wordSetId)
+        if(findList!!.isEmpty()) {
+            return throw WordNotFoundException()
+        }
+        return findList
     }
     fun findById(wordId : Long?) : Word? {
         return getWordById(wordId)
@@ -42,6 +46,14 @@ class WordService(
         val word = getWordById(wordId)
         word?.changeWord(updateWordForm)
         return word?.id
+    }
+
+    @Transactional
+    fun add(wordSetId: Long?, wordFormList: MutableList<WordCreateForm>) {
+        val wordSet = wordSetService.findById(wordSetId)
+        wordFormList.forEach { wordCreateForm ->
+            wordSet?.words?.add(Word(wordCreateForm.vocabulary,wordCreateForm.meaning,wordSet))
+        }
     }
     private fun getWordById(wordId: Long?) : Word? {
         return wordRepository.findById(wordId).orElse(null) ?: throw WordNotFoundException()

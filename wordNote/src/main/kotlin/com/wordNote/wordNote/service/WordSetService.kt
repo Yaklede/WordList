@@ -4,7 +4,7 @@ import com.wordNote.wordNote.domain.WordSet
 import com.wordNote.wordNote.dto.wordSet.WordSetCreateForm
 import com.wordNote.wordNote.dto.wordSet.WordSetUpdateForm
 import com.wordNote.wordNote.exception.WordSetNotFoundException
-import com.wordNote.wordNote.repository.WordSetRepository
+import com.wordNote.wordNote.repository.wordSet.WordSetRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -46,5 +46,13 @@ class WordSetService(
     }
     fun findAll() : List<WordSet>? {
         return wordSetRepository.findAll()
+    }
+
+    fun findWordSetListByLoginId(loginId : String) : List<WordSet>? {
+        val findList = wordSetRepository.findByLoginId(loginId)
+        if(findList!!.isEmpty()) {
+            return throw WordSetNotFoundException()
+        }
+        return findList
     }
 }

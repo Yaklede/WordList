@@ -6,7 +6,7 @@ import com.wordNote.wordNote.dto.wordSet.WordSetCreateForm
 import com.wordNote.wordNote.dto.wordSet.WordSetUpdateForm
 import com.wordNote.wordNote.exception.WordSetNotFoundException
 import com.wordNote.wordNote.repository.MemberRepository
-import com.wordNote.wordNote.repository.WordSetRepository
+import com.wordNote.wordNote.repository.wordSet.WordSetRepository
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
