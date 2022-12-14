@@ -4,7 +4,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import com.wordNote.wordNote.domain.QWordSet.wordSet
 import com.wordNote.wordNote.domain.QMember.member
 import com.wordNote.wordNote.domain.WordSet
-import kotlin.math.log
 
 class WordSetCustomRepositoryImpl(
     private val queryFactory : JPAQueryFactory,

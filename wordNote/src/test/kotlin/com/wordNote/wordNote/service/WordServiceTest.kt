@@ -124,9 +124,11 @@ class WordServiceTest @Autowired constructor(
         //when
         wordSetService.delete(wordSet?.id)
         //then
-        val findAll = wordService.findAllByWordSetId(wordSet?.id)
+        val assertThrow = assertThrows(WordNotFoundException::class.java) {
+            wordService.findAllByWordSetId(wordSet?.id)
+        }
         val member = memberService.findByLoginId("id")
-        assertThat(findAll).isEmpty()
+        assertThat(assertThrow.message).isEqualTo("단어를 찾을 수 없습니다.")
         assertThat(member).isNotNull
     }
     @Test
@@ -145,7 +147,7 @@ class WordServiceTest @Autowired constructor(
         //then
         val findAll = wordService.findAllByWordSetId(wordSet?.id)
         val member = memberService.findByLoginId("id")
-        assertThat(findAll).isNotEmpty
+        assertThat(findAll).isNotNull
         assertThat(member).isNotNull
     }
 }

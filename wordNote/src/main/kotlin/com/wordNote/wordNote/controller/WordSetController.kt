@@ -1,38 +1,34 @@
 package com.wordNote.wordNote.controller
 
 import com.wordNote.wordNote.domain.WordSet
-import com.wordNote.wordNote.dto.member.MemberCreateForm
 import com.wordNote.wordNote.dto.wordSet.WordSetCreateForm
+import com.wordNote.wordNote.dto.wordSet.WordSetDTO
 import com.wordNote.wordNote.dto.wordSet.WordSetUpdateForm
-import com.wordNote.wordNote.service.MemberService
 import com.wordNote.wordNote.service.WordSetService
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.annotation.PostConstruct
 
 @RestController
 @RequestMapping("/wordSet")
 class WordSetController(
     private val wordSetService: WordSetService,
 ) {
-
-    @PostConstruct
-    fun init() {
-        wordSetService.create(1L,WordSetCreateForm("testTitle","desc"))
+    @GetMapping("/list/{loginId}")
+    fun wordSetList(@PathVariable("loginId") loginId : String) : List<WordSetDTO>? {
+        val list = wordSetService.findWordSetListByLoginId(loginId)
+        return list?.map { wordSet : WordSet -> WordSetDTO(wordSet) }
     }
 
-    @GetMapping("/list/{loginId}")
-    fun wordSetList(@PathVariable("loginId") loginId : String) : List<WordSet>? {
-        return wordSetService.findWordSetListByLoginId(loginId)
+    @GetMapping("/{wordSetId}")
+    fun wordSetFindOne(@PathVariable("wordSetId") wordSetId: Long) : WordSetDTO? {
+        val wordSet = wordSetService.findById(wordSetId)
+        return WordSetDTO(wordSet)
     }
 
     @PostMapping("/create/{memberId}")

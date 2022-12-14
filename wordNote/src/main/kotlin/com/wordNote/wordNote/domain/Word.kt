@@ -1,6 +1,5 @@
 package com.wordNote.wordNote.domain
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wordNote.wordNote.dto.word.WordUpdateForm
 import javax.persistence.*
 
@@ -12,7 +11,6 @@ class Word(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "word_set_id")
-    @JsonIgnore
     val wordSet : WordSet?,
 
     @Id

@@ -1,24 +1,18 @@
 package com.wordNote.wordNote.controller
 
 import com.wordNote.wordNote.domain.Word
-import com.wordNote.wordNote.dto.word.WordCreateForm
+import com.wordNote.wordNote.dto.word.WordDTO
 import com.wordNote.wordNote.dto.word.WordListForm
 import com.wordNote.wordNote.dto.word.WordUpdateForm
 import com.wordNote.wordNote.service.WordService
-import com.wordNote.wordNote.service.WordSetService
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -27,8 +21,9 @@ class WordController(
     private val wordService: WordService,
 ) {
     @GetMapping("/list/{wordSetId}")
-    fun list(@PathVariable("wordSetId") wordSetId : Long) : MutableList<Word>? {
-        return wordService.findAllByWordSetId(wordSetId)
+    fun list(@PathVariable("wordSetId") wordSetId : Long) : List<WordDTO>? {
+        val list = wordService.findAllByWordSetId(wordSetId)
+        return list?.map { word: Word -> WordDTO(word) }
     }
 
     /**

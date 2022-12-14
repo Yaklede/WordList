@@ -45,7 +45,7 @@ class MemberService(
         val findMember = getMemberByLoginId(loginId)
         memberRepository.delete(findMember)
     }
-    fun findByLoginId(loginId: String) : Member? {
+    fun findByLoginId(loginId: String) : Member {
         return getMemberByLoginId(loginId)
     }
     private fun getMemberByLoginId(loginId: String): Member {

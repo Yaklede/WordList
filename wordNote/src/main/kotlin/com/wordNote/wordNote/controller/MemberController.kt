@@ -2,20 +2,17 @@ package com.wordNote.wordNote.controller
 
 import com.wordNote.wordNote.domain.Member
 import com.wordNote.wordNote.dto.member.MemberCreateForm
+import com.wordNote.wordNote.dto.member.MemberDTO
 import com.wordNote.wordNote.dto.member.MemberUpdateForm
 import com.wordNote.wordNote.service.MemberService
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.annotation.PostConstruct
 
 /**
  * Controller Advice를 이용하여
@@ -26,16 +23,16 @@ import javax.annotation.PostConstruct
 class MemberController(
     private val memberService: MemberService,
 ) {
-
-    @PostConstruct
-    fun initMember() {
-        val form = MemberCreateForm("testId","pass","name")
-        memberService.join(form)
+    @GetMapping("/list")
+    fun memberList() : List<MemberDTO> {
+        val list = memberService.findAll()
+        return list.map { member: Member -> MemberDTO(member)}
     }
 
-    @GetMapping("/list")
-    fun memberList() : List<Member> {
-        return memberService.findAll()
+    @GetMapping("/{loginId}")
+    fun memberFindOne(@PathVariable("loginId") loginId: String) : MemberDTO {
+        val member = memberService.findByLoginId(loginId)
+        return MemberDTO(member)
     }
 
     @PostMapping("/join")
